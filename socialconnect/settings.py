@@ -70,7 +70,7 @@ WSGI_APPLICATION = "socialconnect.wsgi.application"
 fallback_url = (
     f"postgresql://{os.getenv('PGUSER', 'postgres')}:"
     f"{os.getenv('PGPASSWORD', 'dean')}@"
-    f"{os.getenv('PGHOST', 'db.rwocivhozcmfswyilrwy.supabase.co)}:"
+    f"{os.getenv('PGHOST', 'db.rwocivhozcmfswyilrwy.supabase.co')}:"
     f"{os.getenv('PGPORT', '5432')}/"
     f"{os.getenv('PGDATABASE', 'postgres')}?sslmode=require"
 )
