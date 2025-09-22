@@ -37,6 +37,7 @@ AUTH_USER_MODEL = "users.CustomUser"
 # ---------------- Middleware ----------------
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # Whitenoise for static files
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -68,18 +69,19 @@ WSGI_APPLICATION = "socialconnect.wsgi.application"
 # ---------------- Database ----------------
 fallback_url = (
     f"postgresql://{os.getenv('PGUSER', 'postgres')}:"
-    f"{os.getenv('PGPASSWORD', 'Deanambrose%4012345')}@"
-    f"{os.getenv('PGHOST', 'db.rwocivhozcmfswyilrwy.supabase.co')}:"
+    f"{os.getenv('PGPASSWORD', 'dean')}@"
+    f"{os.getenv('PGHOST', 'db.rwocivhozcmfswyilrwy.supabase.co)}:"
     f"{os.getenv('PGPORT', '5432')}/"
     f"{os.getenv('PGDATABASE', 'postgres')}?sslmode=require"
 )
 
 DATABASES = {
-    "default": dj_database_url.parse(os.getenv("DATABASE_URL"), conn_max_age=600, ssl_require=True)
+    "default": dj_database_url.parse(
+        os.getenv("DATABASE_URL", fallback_url),
+        conn_max_age=600,
+        ssl_require=True,
+    )
 }
-
-# Ensure SSL options
-DATABASES["default"]["OPTIONS"] = {"sslmode": "require"}
 
 # ---------------- Internationalization ----------------
 LANGUAGE_CODE = "en-us"
@@ -90,9 +92,6 @@ USE_TZ = True
 # ---------------- Static Files ----------------
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
-# Whitenoise for static files in production
-MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 
 # ---------------- Supabase ----------------
 SUPABASE_URL = os.getenv("SUPABASE_URL")
