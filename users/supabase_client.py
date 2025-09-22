@@ -1,7 +1,7 @@
 from supabase import create_client
 import os
 
-SUPABASE_URL="postgresql://postgres:dean@db.rwocivhozcmfswyilrwy.supabase.co:5432/postgres"
-SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ3b2NpdmhvemNtZnN3eWlscnd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgxOTk4MzQsImV4cCI6MjA3Mzc3NTgzNH0.cWijGv79epHPp2IxMcBxOUhI0F5ZGaraYTJI23BRV6E"
+SUPABASE_URL = "https://rwocivhozcmfswyilrwy.supabase.co"  # not the PostgreSQL URL
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."   # anon/service role key
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
