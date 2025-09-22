@@ -80,7 +80,7 @@ fallback_url = (
 # Use DATABASE_URL if available, otherwise fallback
 DATABASES = {
     "default": dj_database_url.parse(
-        os.environ.get("DATABASE_URL", fallback_url),
+        os.getenv("DATABASE_URL", f"postgresql://{os.getenv('PGUSER')}:{os.getenv('PGPASSWORD')}@{os.getenv('PGHOST')}:{os.getenv('PGPORT')}/{os.getenv('PGDATABASE')}?sslmode=require"),
         conn_max_age=600,
         ssl_require=True
     )
